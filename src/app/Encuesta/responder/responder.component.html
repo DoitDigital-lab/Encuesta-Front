@@ -1,0 +1,30 @@
+<div class="container">
+    <h2>Encuesta</h2>
+<form [formGroup]="formularioRespuesta">
+    <div class="mb-9">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" formControlName="email" name="email" required [(ngModel)]="respuesta.email">
+        <span *ngIf="this.formularioRespuesta.get('email')?.errors?.['required']">
+            (El mail no puede quedar vacío)
+          </span>
+          <span *ngIf="this.formularioRespuesta.get('email')?.errors?.['email']">
+            (El mail no es válido)
+          </span>
+          <div [hidden]="!requestFailed">
+            <small>{{ error }}</small>
+         </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="estilo" class="col-form-label col-sm1">Estilo</label>
+        <select [(ngModel)]="respuesta.estilos" class="form-control" name="estilo" formControlName="estilo">
+            <option [ngValue]="undefined">--Seleccione Estilo</option>
+            <option *ngFor="let estilo of estilos" [ngValue]="estilo">{{estilo.nombre}}</option>
+        </select>
+        <span *ngIf="this.formularioRespuesta.get('estilo')?.errors?.['required']">
+            (Debe seleccionar estilo)
+          </span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2" (click)="responderEncuesta()">Guardar</button>
+</form>
+</div>
